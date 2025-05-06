@@ -140,7 +140,7 @@ eksctl create cluster -f cluster-config.yaml
 eksctl delete cluster --name my-cluster --region us-east-1
 ```
 
-### 🔹 Run the following command to add new node in the cluster:
+🔹 Run the following command to add new node in the cluster:
 ```
 eksctl create nodegroup -f monitoring-nodegroup.yaml
 ```
