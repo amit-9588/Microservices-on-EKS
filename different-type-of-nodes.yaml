@@ -1,0 +1,26 @@
+# cluster-config.yaml
+apiVersion: eksctl.io/v1alpha5
+kind: ClusterConfig
+
+metadata:
+  name: three-tier-cluster
+  region: us-west-2
+
+nodeGroups:
+  - name: frontend-nodes
+    instanceType: t3.small
+    desiredCapacity: 2
+    minSize: 2
+    maxSize: 3
+
+  - name: backend-nodes
+    instanceType: m5.large
+    desiredCapacity: 2
+    minSize: 2
+    maxSize: 4
+
+  - name: db-nodes
+    instanceType: r5.large
+    desiredCapacity: 1
+    minSize: 1
+    maxSize: 2
