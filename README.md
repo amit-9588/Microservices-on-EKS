@@ -147,7 +147,7 @@ eksctl delete cluster --name my-cluster --region us-east-1
    ```
    kubectl config current-context
    ```
- - view Current Context
+ - View Current Context
     ```
    kubectl config get-contexts
    ```
@@ -159,5 +159,67 @@ eksctl delete cluster --name my-cluster --region us-east-1
     ```
    kubectl config delete-context <context-name>
    ```
+
+## 🔹 `kubectl` commands :
+- View All Nodes
+  ```
+  kubectl get nodes
+  ```
+- View All Pods
+  ```
+  kubectl get pods   # this commands works for default workspace
+  kubectl get pods -n <namespace-name>
+  ```
+- View All Deployments
+   ```
+  kubectl get deployments   # this commands works for default workspace
+  kubectl get deployments -n <namespace-name>
+  ```
+- View All Services
+    ```
+  kubectl get services   # this commands works for default workspace
+  kubectl get services -n <namespace-name>
+  ```
+- View All NameSpace
+  ```
+  kubectl get ns  
+  ```
+- View All inside Namespace
+  ```
+  kubectl get All   # this commands works for default workspace
+  kubectl get All -n <namespace-name>
+  ```
+- View All Ingress
+  ```
+  kubectl get ingress   # this commands works for default workspace
+  kubectl get ingress -n <namespace-name>
+  ```
+- How to apply any `yaml` file
+  ```
+  kubectl apply -f <file-name>   # for single file
+  kubectl apply -f .             # for all files in current folder
+  kubectl apply -f <file-name> -f <file-name> -f <file-name>  # for multiple files
+  ```
+- How to delete pod
+  ```
+  kubectl delete pod <pod-name>   # for default namespace
+  kubectl delete pod <pod-name> -n <name-space>    # for specific namespace
+  ```
+- How to delete deployment
+  ```
+  kubectl delete deployment <deployment-name>   # for default namespace
+  kubectl delete deployment <deployment-name> -n <name-space>    # for specific namespace
+  ```
+- How to delete service
+   ```
+  kubectl delete service <service-name>   # for default namespace
+  kubectl delete deployment <service-name> -n <name-space>    # for specific namespace
+  ```
+- How to delete ingress
+    ```
+  kubectl delete ingress <ingress-name>   # for default namespace
+  kubectl delete deployment <ingress-name> -n <name-space>    # for specific namespace
+  ```
+
 
 
