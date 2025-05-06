@@ -1,0 +1,19 @@
+apiVersion: eksctl.io/v1alpha5
+kind: ClusterConfig
+
+metadata:
+  name: <your-cluster-name>
+  region: <your-region>
+
+nodeGroups:
+  - name: monitoring-nodes
+    instanceType: t3.medium
+    desiredCapacity: 1
+    minSize: 1
+    maxSize: 2
+    labels:
+      node-role: monitoring
+    taints:
+      - key: monitoring
+        value: "true"
+        effect: NoSchedule
