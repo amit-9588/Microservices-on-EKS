@@ -80,6 +80,7 @@ eksctl create cluster \
   --nodes-min 2 \
   --nodes-max 2
 ```
+
 ### 📝 Command Explanation
 
 Flag | Description 
@@ -138,6 +139,17 @@ eksctl create cluster -f cluster-config.yaml
 ```
 eksctl delete cluster --name my-cluster --region us-east-1
 ```
+
+### 🔹 Run the following command to add new node in the cluster:
+```
+eksctl create nodegroup -f monitoring-nodegroup.yaml
+```
+
+🔹 Delete the node group: `it means if multiple nodes are created by same node group then all are deleted`
+```
+eksctl delete nodegroup --cluster <cluster-name> --name <node-group-name>
+```
+
 • When we create a cluster then it is added in `kubeconfig` file. IF you want to :
  - Update context of cluster in kubeconfig
    ```
