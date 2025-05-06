@@ -134,4 +134,30 @@ nodeGroups:
 eksctl create cluster -f cluster-config.yaml
 ```
 
+🔹 Run the following command to delete the cluster:
+```
+eksctl delete cluster --name my-cluster --region us-east-1
+```
+• When we create a cluster then it is added in `kubeconfig` file. IF you want to :
+ - Update context of cluster in kubeconfig
+   ```
+   aws eks update-kubeconfig --region us-west-2 --name three-tier-cluster
+   ```
+ - View All Context
+   ```
+   kubectl config current-context
+   ```
+ - view Current Context
+    ```
+   kubectl config get-contexts
+   ```
+ - View Full Kubeconfig File
+    ```
+   kubectl config view
+   ```
+ - Clean Up Old Contexts
+    ```
+   kubectl config delete-context <context-name>
+   ```
+
 
