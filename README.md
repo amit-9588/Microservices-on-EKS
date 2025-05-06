@@ -129,4 +129,9 @@ nodeGroups:
     minSize: 1
     maxSize: 2
 ```
+🔹 Run the following command to create the cluster:
+```
+eksctl create cluster -f cluster-config.yaml
+```
+
 
