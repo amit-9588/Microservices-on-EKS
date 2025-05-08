@@ -233,5 +233,70 @@ eksctl delete nodegroup --cluster <cluster-name> --name <node-group-name>
   kubectl delete deployment <ingress-name> -n <name-space>    # for specific namespace
   ```
 
+ 🚀 To configure Prometheus, Loki, and Grafana on a single node (e.g., for monitoring logs and metrics in a Kubernetes cluster or even on a bare node), the easiest and most production-ready way is to use Helm charts. Here's a step-by-step guide using Helm on Kubernetes (e.g., EKS):
+
+ ✅ Step 1: Install Helm (Linux/macOS)
+Run the following commands:
+
+```
+curl https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | bash
+```
+Then verify it's installed:
+```
+helm version
+```
+
+📦 Step-by-Step: Using Helm
+1. Add Required Helm Repos
+```
+helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
+helm repo add grafana https://grafana.github.io/helm-charts
+helm repo update
+```
+
+2. Install Prometheus
+```
+helm install prometheus prometheus-community/prometheus \
+  --namespace monitoring --create-namespace
+```
+This will install Prometheus under monitoring namespace.
+
+3. Install Loki
+```
+helm install loki grafana/loki-stack \
+  --namespace monitoring \
+  --set promtail.enabled=true \
+  --set grafana.enabled=false
+```
+This:
+
+- Installs Loki
+- Also installs Promtail to collect logs from pods
+- Disables Grafana to avoid duplicate install
+
+4. Install Grafana
+```
+helm install grafana grafana/grafana \
+  --namespace monitoring \
+  --set persistence.enabled=true \
+  --set adminPassword='admin' \
+  --set datasources."datasources\.yaml".apiVersion=1 \
+  --set datasources."datasources\.yaml".datasources[0].name=Loki \
+  --set datasources."datasources\.yaml".datasources[0].type=loki \
+  --set datasources."datasources\.yaml".datasources[0].access=proxy \
+  --set datasources."datasources\.yaml".datasources[0].url=http://loki.monitoring.svc.cluster.local:3100
+  ```
+- Grafana will auto-connect to Loki
+- You can manually connect Prometheus later from the Grafana UI (http://prometheus.monitoring.svc.cluster.local:9090)
+
+5. Access Grafana UI
+To access the UI from your browser:
+```
+kubectl port-forward svc/grafana 3000:80 -n monitoring
+```
+Then open: http://localhost:3000
+
+Username: admin
+Password: admin (as set above)
 
 
